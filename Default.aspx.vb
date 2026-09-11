@@ -18,6 +18,9 @@ Partial Class _Default
     Public Property FestivalEndDate As String
     Public Property PublicUpiId As String
     Public Property PublicDonationEnabled As Boolean
+    Public Property ArrivalDateIso As String
+    Public Property ArrivalDateLabel As String
+    Public Property ShowArrivalCountdown As Boolean
     Public Property OpenBalance As Decimal
     Public Property ConfirmedDonationTotal As Decimal
     Public Property ApprovedExpenseTotal As Decimal
@@ -40,6 +43,16 @@ Partial Class _Default
         AboutDescription = settings("AboutDescription").ToString()
         FestivalStartDate = settings("FestivalStartDate").ToString()
         FestivalEndDate = settings("FestivalEndDate").ToString()
+        Dim arrivalDate As DateTime
+        If DateTime.TryParse(FestivalStartDate, arrivalDate) Then
+            ShowArrivalCountdown = arrivalDate.Date > Date.Today
+            ArrivalDateIso = arrivalDate.ToString("yyyy-MM-dd")
+            ArrivalDateLabel = arrivalDate.ToString("dd MMM yyyy")
+        Else
+            ShowArrivalCountdown = False
+            ArrivalDateIso = String.Empty
+            ArrivalDateLabel = String.Empty
+        End If
         PublicUpiId = settings("PublicUpiId").ToString()
         PublicDonationEnabled = Convert.ToBoolean(settings("PublicDonationEnabled"))
 

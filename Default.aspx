@@ -37,13 +37,13 @@
             </div>
         </nav>
 
-        <header class="hero-section" style="background: linear-gradient(135deg, rgba(217,119,6,0.9), rgba(22,101,52,0.9)), url('<%= LandingBannerImage %>') center/cover;">
+        <header class="hero-section" style="--hero-image: url('<%= LandingBannerImage %>');">
             <div class="container hero-content">
                 <div class="row align-items-center">
                     <div class="col-lg-7">
                         <span class="eyebrow">Welcome to <%= FestivalName %></span>
-                        <h1><%= LandingHeadline %></h1>
-                        <p class="lead"><%= LandingSubheadline %></p>
+                        <h1>May Lord Ganesha bring joy to every home.</h1>
+                        <p class="lead">Wishing you and your family peace, prosperity and a blessed Ganesh Utsav.</p>
                         <div class="hero-actions d-flex flex-wrap gap-3">
                             <% If PublicDonationEnabled Then %>
                                 <a href="PublicDonation.aspx" class="btn btn-primary btn-lg">Donate Now</a>
@@ -71,23 +71,12 @@
                         </div>
                     </div>
                     <div class="col-lg-5">
-                        <div class="hero-card">
-                            <div class="card-header">Festival Snapshot</div>
-                            <div class="snapshot-metric">
-                                <label>Opening Balance</label>
-                                <strong>Rs. <%=(OpenBalance) %></strong>
-                            </div>
-                            <div class="snapshot-metric">
-                                <label>Confirmed Donations</label>
-                                <strong>Rs. <%=(ConfirmedDonationTotal) %></strong>
-                            </div>
-                            <div class="snapshot-metric">
-                                <label>Approved Expenses</label>
-                                <strong>Rs. <%=(ApprovedExpenseTotal) %></strong>
-                            </div>
-                            <div class="snapshot-metric highlight">
-                                <label>Current Balance</label>
-                                <strong>Rs. <%=(CurrentBalance) %></strong>
+                        <div class="hero-arrival-card">
+                            <img src="<%= LandingLogo %>" alt="Ganesh idol" class="hero-idol" />
+                            <div id="arrivalTimer" <% If Not ShowArrivalCountdown Then %>style="display:none"<% End If %>>
+                                <div class="arrival-label">Ganesh ji arrives in</div>
+                                <div id="arrivalCountdown" class="arrival-countdown" data-arrival="<%= ArrivalDateIso %>"><span><strong>0</strong><small>Days</small></span><span><strong>0</strong><small>Hours</small></span><span><strong>0</strong><small>Minutes</small></span><span><strong>0</strong><small>Seconds</small></span></div>
+                                <p class="arrival-date">Puja begins <%= ArrivalDateLabel %></p>
                             </div>
                         </div>
                     </div>
@@ -97,6 +86,22 @@
 
         <main>
             <section id="about" class="py-5 bg-white">
+    <script>
+        (function () {
+            var countdown = document.getElementById('arrivalCountdown');
+            if (!countdown) return;
+            var target = new Date(countdown.getAttribute('data-arrival') + 'T00:00:00');
+            function update() {
+                var remaining = target.getTime() - new Date().getTime();
+                var values = remaining > 0 ? [Math.floor(remaining / 86400000), Math.floor(remaining / 3600000) % 24, Math.floor(remaining / 60000) % 60, Math.floor(remaining / 1000) % 60] : [0, 0, 0, 0];
+                var units = countdown.querySelectorAll('strong');
+                for (var i = 0; i < units.length; i++) units[i].textContent = values[i];
+                if (remaining <= 0) document.getElementById('arrivalTimer').style.display = 'none';
+            }
+            update();
+            window.setInterval(update, 1000);
+        }());
+    </script>
                 <div class="container">
                     <div class="row align-items-center g-4">
                         <div class="col-lg-6">

@@ -33,7 +33,7 @@
                     <h1>Good morning, committee.</h1>
                     <p class="welcome-copy">A clear view of the money, people, and activity keeping this celebration moving.</p>
                 </div>
-                <a class="primary-action" href="Donations.aspx"><span>+</span> Record donation</a>
+                <div class="d-flex flex-wrap gap-2"><a class="primary-action" href="Events.aspx">Upload schedule</a><a class="primary-action" href="Donations.aspx"><span>+</span> Record donation</a></div>
             </div>
 
             <section class="stats-grid" aria-label="Financial summary">

@@ -1,6 +1,7 @@
 Imports System
 Imports System.Data
 Imports System.Globalization
+Imports System.Web.UI.WebControls
 
 Partial Class DonationsPage
     Inherits System.Web.UI.Page
@@ -42,6 +43,33 @@ Partial Class DonationsPage
         txtDonorName.Text = ""
         txtAmount.Text = ""
         ddlStatus.SelectedIndex = 0
+        LoadDonations()
+    End Sub
+
+    Protected Sub rptDonations_ItemCommand(ByVal source As Object, ByVal e As RepeaterCommandEventArgs)
+        If e.CommandName <> "UpdateStatus" Then
+            Return
+        End If
+
+        Dim statusList As DropDownList = CType(e.Item.FindControl("ddlRowStatus"), DropDownList)
+        Dim donationId As Integer
+        If statusList Is Nothing OrElse Not Integer.TryParse(e.CommandArgument.ToString(), donationId) Then
+            Return
+        End If
+
+        Dim newStatus As String = statusList.SelectedValue
+        If newStatus <> "Pending" AndAlso newStatus <> "Confirmed" AndAlso newStatus <> "Rejected" Then
+            Return
+        End If
+
+        Dim oldStatus As Object = SqlDataHelper.ExecuteScalar("SELECT Status FROM dbo.Donations WHERE DonationId = " & donationId & " AND StatusChangeCount = 0")
+        If oldStatus Is Nothing Then
+            LoadDonations()
+            Return
+        End If
+
+        SqlDataHelper.ExecuteNonQuery("UPDATE dbo.Donations SET Status = '" & newStatus & "', StatusChangeCount = StatusChangeCount + 1 WHERE DonationId = " & donationId & " AND StatusChangeCount = 0")
+        SqlDataHelper.LogAudit(Session("AuthUser").ToString(), "Updated donation status", "Donation", donationId.ToString(), If(oldStatus Is Nothing, "", oldStatus.ToString()), newStatus)
         LoadDonations()
     End Sub
 

@@ -33,10 +33,10 @@ img {
 }
 
 .hero-section {
-  background: linear-gradient(135deg, rgba(217,119,6,0.9), rgba(22,101,52,0.9)), url('https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=1600&q=80') center/cover;
+  background: linear-gradient(90deg, rgba(14,41,38,0.94) 0%, rgba(14,41,38,0.78) 48%, rgba(14,41,38,0.62) 100%), var(--hero-image) center/cover;
   color: white;
-  padding-top: 120px;
-  padding-bottom: 90px;
+  padding-top: 145px;
+  padding-bottom: 100px;
 }
 
 .hero-content {
@@ -89,6 +89,30 @@ img {
   padding: 1.25rem;
   box-shadow: 0 25px 45px rgba(0,0,0,0.18);
 }
+
+.hero-arrival-card {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 22px;
+  box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+}
+
+.hero-idol {
+  width: min(100%, 290px);
+  height: 290px;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 24px rgba(0,0,0,0.28));
+}
+
+.arrival-label { margin-top: 0.75rem; color: rgba(255,255,255,0.78); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72rem; font-weight: 700; }
+.arrival-countdown { display: flex; justify-content: center; gap: 0.7rem; margin-top: 0.75rem; }
+.arrival-countdown span { min-width: 62px; padding: 0.55rem 0.35rem; background: rgba(255,255,255,0.12); border-radius: 10px; }
+.arrival-countdown strong, .arrival-countdown small { display: block; }
+.arrival-countdown strong { font-size: 1.65rem; line-height: 1; }
+.arrival-countdown small { margin-top: 0.35rem; color: rgba(255,255,255,0.7); font-size: 0.7rem; }
+.arrival-date { margin: 1rem 0 0; color: rgba(255,255,255,0.72); font-size: 0.85rem; }
 
 .card-header {
   font-size: 0.8rem;
@@ -209,4 +233,10 @@ img {
   .hero-section {
     padding-top: 100px;
   }
+}
+
+@media (max-width: 575px) {
+  .arrival-countdown { gap: 0.35rem; }
+  .arrival-countdown span { min-width: 54px; }
+  .arrival-countdown strong { font-size: 1.25rem; }
 }

@@ -1,5 +1,6 @@
 Imports System
 Imports System.Data
+Imports System.IO
 
 Partial Class SettingsPage
     Inherits System.Web.UI.Page
@@ -36,13 +37,14 @@ Partial Class SettingsPage
         Dim committeeName As String = txtCommitteeName.Text.Trim()
 
         Dim bannerImageUrl As String = txtBannerImageUrl.Text.Trim()
+        Dim idolImageUrl As String = SaveIdolImage()
         Dim aboutTitle As String = txtAboutTitle.Text.Trim()
         Dim aboutDescription As String = txtAboutDescription.Text.Trim()
         Dim startDate As String = If(String.IsNullOrWhiteSpace(txtFestivalStartDate.Text.Trim()), "NULL", "'" & txtFestivalStartDate.Text.Trim() & "'")
         Dim endDate As String = If(String.IsNullOrWhiteSpace(txtFestivalEndDate.Text.Trim()), "NULL", "'" & txtFestivalEndDate.Text.Trim() & "'")
 
         Dim sql As String = String.Format(
-            "UPDATE dbo.Settings SET FestivalName = '{0}', CommitteeName = '{1}', PublicUpiId = '{2}', OpeningBalance = {3}, LandingHeadline = '{4}', LandingSubheadline = '{5}', LandingBannerImage = '{6}', PublicDonationEnabled = {7}, AboutTitle = '{8}', AboutDescription = '{9}', FestivalStartDate = {10}, FestivalEndDate = {11} WHERE Id = (SELECT TOP 1 Id FROM dbo.Settings ORDER BY Id DESC)",
+            "UPDATE dbo.Settings SET FestivalName = '{0}', CommitteeName = '{1}', PublicUpiId = '{2}', OpeningBalance = {3}, LandingHeadline = '{4}', LandingSubheadline = '{5}', LandingBannerImage = '{6}', LogoUrl = ISNULL(NULLIF('{7}', ''), LogoUrl), PublicDonationEnabled = {8}, AboutTitle = '{9}', AboutDescription = '{10}', FestivalStartDate = {11}, FestivalEndDate = {12} WHERE Id = (SELECT TOP 1 Id FROM dbo.Settings ORDER BY Id DESC)",
             festivalName.Replace("'", "''"),
             committeeName.Replace("'", "''"),
             txtPublicUpiId.Text.Trim().Replace("'", "''"),
@@ -50,6 +52,7 @@ Partial Class SettingsPage
             txtLandingHeadline.Text.Trim().Replace("'", "''"),
             txtLandingSubheadline.Text.Trim().Replace("'", "''"),
             bannerImageUrl.Replace("'", "''"),
+            idolImageUrl.Replace("'", "''"),
             If(chkPublicDonationEnabled.Checked, 1, 0),
             aboutTitle.Replace("'", "''"),
             aboutDescription.Replace("'", "''"),
@@ -58,5 +61,23 @@ Partial Class SettingsPage
 
         SqlDataHelper.ExecuteNonQuery(sql)
         SqlDataHelper.LogAudit(Session("AuthUser").ToString(), "Updated settings", "Settings", "", "", festivalName)
+        lblMessage.Text = "Settings saved."
     End Sub
+
+    Private Function SaveIdolImage() As String
+        If Not fileIdolImage.HasFile Then
+            Return String.Empty
+        End If
+
+        Dim extension As String = Path.GetExtension(fileIdolImage.FileName).ToLowerInvariant()
+        If extension <> ".png" AndAlso extension <> ".jpg" AndAlso extension <> ".jpeg" Then
+            Return String.Empty
+        End If
+
+        Dim folder As String = Server.MapPath("~/assets/uploads")
+        Directory.CreateDirectory(folder)
+        Dim fileName As String = "ganesh-idol-" & DateTime.Now.ToString("yyyyMMddHHmmss") & extension
+        fileIdolImage.SaveAs(Path.Combine(folder, fileName))
+        Return "assets/uploads/" & fileName
+    End Function
 End Class

@@ -69,6 +69,7 @@ Public Class SqlDataHelper
           "          ReceiptNumber NVARCHAR(100) NULL, " &
           "          Notes NVARCHAR(MAX) NULL, " &
           "          Status NVARCHAR(50) NOT NULL DEFAULT 'Pending', " &
+          "          StatusChangeCount INT NOT NULL DEFAULT 0, " &
           "          IsPublic BIT NOT NULL DEFAULT 0, " &
           "          CreatedAt DATETIME NOT NULL DEFAULT GETDATE() " &
           "      ) " &
@@ -168,15 +169,25 @@ Public Class SqlDataHelper
 
         ExecuteNonQuery(createSql)
 
-        Dim alterSql As String = " IF OBJECT_ID('dbo.Settings', 'U') IS NOT NULL " &
+            Dim alterSql As String = " IF OBJECT_ID('dbo.Settings', 'U') IS NOT NULL " &
           "  BEGIN " &
           "      IF COL_LENGTH('dbo.Settings', 'LandingBannerImage') IS NULL ALTER TABLE dbo.Settings ADD LandingBannerImage NVARCHAR(500) NULL; " &
           "      IF COL_LENGTH('dbo.Settings', 'AboutTitle') IS NULL ALTER TABLE dbo.Settings ADD AboutTitle NVARCHAR(300) NULL; " &
           "      IF COL_LENGTH('dbo.Settings', 'AboutDescription') IS NULL ALTER TABLE dbo.Settings ADD AboutDescription NVARCHAR(MAX) NULL; " &
           "      IF COL_LENGTH('dbo.Settings', 'FestivalStartDate') IS NULL ALTER TABLE dbo.Settings ADD FestivalStartDate DATE NULL; " &
           "      IF COL_LENGTH('dbo.Settings', 'FestivalEndDate') IS NULL ALTER TABLE dbo.Settings ADD FestivalEndDate DATE NULL; " &
-          "  END  "
+                    "  END  "
         ExecuteNonQuery(alterSql)
+
+                Dim donationAlterSql As String = " IF OBJECT_ID('dbo.Donations', 'U') IS NOT NULL " &
+                    "  BEGIN " &
+                    "      IF COL_LENGTH('dbo.Donations', 'StatusChangeCount') IS NULL ALTER TABLE dbo.Donations ADD StatusChangeCount INT NOT NULL CONSTRAINT DF_Donations_StatusChangeCount DEFAULT 0; " &
+                    "  END  "
+                ExecuteNonQuery(donationAlterSql)
+
+                Dim donationBackfillSql As String = " IF COL_LENGTH('dbo.Donations', 'StatusChangeCount') IS NOT NULL " &
+                    "  UPDATE dbo.Donations SET StatusChangeCount = 0 WHERE StatusChangeCount IS NULL"
+                ExecuteNonQuery(donationBackfillSql)
 
         Dim settingsCount As Integer = CInt(ExecuteScalar("SELECT COUNT(*) FROM dbo.Settings"))
         If settingsCount = 0 Then
