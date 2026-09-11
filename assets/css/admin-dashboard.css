@@ -1,0 +1,115 @@
+/* Shared styling for the authenticated management pages. */
+.admin-page { min-height: 100vh; background: var(--paper); }
+.admin-page .topbar { padding: 0 28px; }
+.admin-page .dashboard-width { max-width: 1280px; }
+.admin-nav { display: flex; align-items: center; gap: 8px; }
+.admin-nav a { color: #d6e4de; font-size: 13px; padding: 9px 11px; text-decoration: none; border-radius: 6px; }
+.admin-nav a:hover, .admin-nav a.active { background: rgba(255,255,255,.12); color: #fff; }
+.page-content { padding: 48px 28px 64px; }
+.page-intro { align-items: end; display: flex; justify-content: space-between; margin-bottom: 28px; }
+.page-intro h1 { font-size: 36px; margin: 0; }
+.page-intro p { color: var(--muted); margin: 7px 0 0; }
+.admin-panel { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 25px; }
+.admin-panel + .admin-panel { margin-top: 22px; }
+.admin-panel .form-label { color: #50606a; font-size: 12px; font-weight: 700; margin-bottom: 7px; }
+.admin-panel .form-control, .admin-panel .form-select { border-color: #dce3e7; border-radius: 6px; min-height: 43px; }
+.admin-panel .form-control:focus, .admin-panel .form-select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(22,99,75,.12); }
+.admin-panel .btn-primary { background: var(--green); border-color: var(--green); border-radius: 6px; min-height: 43px; }
+.admin-table { border-collapse: collapse; margin: 0; width: 100%; }
+.admin-table th { background: #f5f8f6; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 11px; letter-spacing: .08em; padding: 13px 14px; text-align: left; text-transform: uppercase; }
+.admin-table td { border-bottom: 1px solid var(--line); color: #52616b; font-size: 13px; padding: 15px 14px; }
+.admin-table tr:last-child td { border-bottom: 0; }
+.admin-table .amount { color: var(--ink); font-weight: 700; }
+.admin-table .status { background: #e1f0e9; border-radius: 20px; color: var(--green); font-size: 11px; font-weight: 700; padding: 5px 9px; }
+.panel-title { align-items: center; display: flex; justify-content: space-between; margin-bottom: 20px; }
+.panel-title h2 { font-size: 20px; margin: 0; }
+@media (max-width: 760px) { .admin-page .topbar { padding: 0 16px; } .admin-nav { display: none; } .page-content { padding: 35px 16px 48px; } .page-intro { align-items: start; flex-direction: column; gap: 14px; } .page-intro h1 { font-size: 30px; } .admin-panel { padding: 18px 14px; } .admin-table th, .admin-table td { padding-left: 8px; padding-right: 8px; white-space: nowrap; } }
+.auth-page { align-items: center; background: radial-gradient(circle at 15% 15%, #dcece5 0, transparent 32%), var(--paper); display: flex; justify-content: center; min-height: 100vh; padding: 24px; }
+.auth-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; max-width: 440px; padding: 34px; width: 100%; }
+.auth-card .brand { color: var(--ink); margin-bottom: 28px; }
+.auth-card .brand small { color: var(--muted); }
+.auth-card h1 { font-size: 30px; margin: 0 0 7px; }
+.auth-card .subtle { color: var(--muted); font-size: 14px; }
+.auth-card .form-label { color: #50606a; font-size: 12px; font-weight: 700; }
+.auth-card .form-control { border-color: #dce3e7; border-radius: 6px; min-height: 45px; }
+.auth-card .form-control:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(22,99,75,.12); }
+.auth-card .btn-primary { background: var(--green); border-color: var(--green); border-radius: 6px; min-height: 45px; }
+.auth-card a { color: var(--green); font-size: 13px; font-weight: 600; }
+.public-page { background: radial-gradient(circle at 85% 10%, #fff1d0 0, transparent 28%), var(--paper); min-height: 100vh; }
+.public-header { background: var(--green-dark); padding: 18px 0; }
+.public-content { padding: 60px 16px; }
+.donation-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; margin: 0 auto; max-width: 720px; padding: 38px; }
+.donation-card h1 { font-size: 34px; margin: 0 0 8px; }
+.donation-card .form-label { color: #50606a; font-size: 12px; font-weight: 700; }
+.donation-card .form-control, .donation-card .form-select { border-color: #dce3e7; border-radius: 6px; min-height: 44px; }
+.donation-card .btn-primary { background: var(--green); border-color: var(--green); border-radius: 6px; min-height: 46px; }
+@media (max-width: 600px) { .auth-card, .donation-card { padding: 25px 20px; } .public-content { padding-top: 35px; } }
+:root {
+  --ink: #17212b;
+  --muted: #72808c;
+  --line: #e5e9ed;
+  --paper: #f6f8f7;
+  --green: #16634b;
+  --green-dark: #0f4938;
+  --amber: #efad35;
+  --coral: #e76f51;
+  --violet: #7b6ca8;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; }
+.dashboard-width { max-width: 1280px; margin: 0 auto; }
+.topbar { background: var(--green-dark); color: #fff; min-height: 76px; display: flex; align-items: center; }
+.brand { color: #fff; display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand-mark { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--amber); color: var(--green-dark); font-size: 22px; }
+.brand strong, .brand small { display: block; }
+.brand strong { font-family: 'Space Grotesk', sans-serif; font-size: 17px; }
+.brand small { color: #b9d2c8; font-size: 11px; margin-top: 2px; }
+.live-status, .logout-link { color: #c3d9d0; font-size: 13px; text-decoration: none; }
+.live-status span { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #82d6a5; margin-right: 7px; }
+.logout-link { border-left: 1px solid rgba(255,255,255,.2); padding-left: 18px; }
+.dashboard-content { padding: 54px 28px 64px; }
+.welcome-row, .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.kicker { color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 9px; }
+.year-chip { color: var(--green); background: #dcece5; border-radius: 20px; padding: 4px 9px; letter-spacing: 0; margin-left: 6px; }
+h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+h1 { font-size: clamp(30px, 4vw, 46px); letter-spacing: -.8px; margin: 0; }
+.welcome-copy { color: var(--muted); margin: 10px 0 0; max-width: 510px; }
+.primary-action { background: var(--green); border-radius: 7px; color: #fff; font-size: 14px; font-weight: 700; padding: 13px 17px; text-decoration: none; white-space: nowrap; }
+.primary-action span { font-size: 20px; line-height: 10px; vertical-align: -2px; margin-right: 5px; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 42px; }
+.stats-grid > div { width: auto; }
+.metric-card { background: #fff; border: 1px solid var(--line); border-radius: 10px; min-height: 168px; padding: 22px; }
+.balance-card { background: var(--green); border-color: var(--green); color: #fff; }
+.metric-top { display: flex; align-items: center; justify-content: space-between; }
+.metric-label { color: var(--muted); font-size: 13px; font-weight: 600; }
+.balance-card .metric-label, .balance-card p { color: #b9d2c8; }
+.metric-icon, .quick-icon { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; background: #dcece5; color: var(--green); font-weight: 700; }
+.metric-icon.amber, .quick-icon.amber { background: #fff1d0; color: #a26e09; }
+.metric-icon.coral, .quick-icon.coral { background: #fde3dc; color: #c45135; }
+.metric-icon.violet, .quick-icon.violet { background: #eae6f4; color: #65548f; }
+.balance-card .metric-icon { background: rgba(255,255,255,.15); color: #fff; }
+.metric-card h2 { font-size: 28px; margin: 24px 0 4px; letter-spacing: -.5px; }
+.metric-card p { color: var(--muted); font-size: 12px; margin: 0; }
+.dashboard-lower { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(280px, .8fr); gap: 22px; margin-top: 28px; }
+.recent-panel, .quick-panel { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 25px; }
+.section-heading { align-items: center; margin-bottom: 20px; }
+.section-heading h3, .quick-panel h3 { font-size: 21px; margin: 0; }
+.text-link { color: var(--green); font-size: 13px; font-weight: 700; text-decoration: none; }
+.text-link span { font-size: 18px; margin-left: 4px; }
+.donation-table { border-collapse: collapse; width: 100%; font-size: 13px; }
+.donation-table th { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .08em; padding: 0 12px 12px; text-align: left; text-transform: uppercase; }
+.donation-table td { border-top: 1px solid var(--line); color: #56636e; padding: 15px 12px; white-space: nowrap; }
+.donation-table td:first-child { color: var(--ink); display: flex; align-items: center; gap: 10px; }
+.donor-avatar { align-items: center; background: #e1f0e9; border-radius: 50%; color: var(--green); display: inline-flex; font-size: 12px; font-weight: 700; height: 30px; justify-content: center; width: 30px; }
+.amount { color: var(--ink) !important; font-weight: 700; }
+.status-pill { background: #e1f0e9; border-radius: 20px; color: var(--green); font-size: 11px; font-weight: 700; padding: 5px 9px; }
+.quick-panel .kicker { margin-bottom: 7px; }
+.quick-panel h3 { margin-bottom: 21px; }
+.quick-panel a { align-items: center; border-top: 1px solid var(--line); color: var(--ink); display: flex; gap: 11px; padding: 15px 0; text-decoration: none; }
+.quick-panel a strong, .quick-panel a small { display: block; }
+.quick-panel a strong { font-size: 13px; }
+.quick-panel a small { color: var(--muted); font-size: 11px; margin-top: 3px; }
+.quick-panel a b { color: var(--green); font-size: 18px; margin-left: auto; }
+@media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .dashboard-lower { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .dashboard-content { padding: 35px 16px 45px; } .topbar { padding: 0 16px; } .dashboard-width { width: 100%; } .live-status { display: none; } .welcome-row { align-items: start; flex-direction: column; } .primary-action { width: 100%; text-align: center; } .stats-grid { gap: 10px; margin-top: 28px; } .metric-card { min-height: 145px; padding: 16px; } .metric-card h2 { font-size: 22px; margin-top: 18px; } .recent-panel, .quick-panel { padding: 18px 14px; } .donation-table th, .donation-table td { padding-left: 6px; padding-right: 6px; } }
